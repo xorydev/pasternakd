@@ -4,23 +4,29 @@ use std::io::{self, Write};
 use std::io::Seek;
 use std::process::Command;
 
-pub fn handle_client() {
-
+fn get_block_devices() -> Vec<String> {
     let output = Command::new("lsblk")
       .arg("--output=NAME")
       .arg("--noheadings")
       .output()
       .unwrap();
 
-    let mut block_devices: Vec<&str> = vec![];
+    let mut block_devices: Vec<String> = vec![];
     let mut output_str = String::new();
     if output.status.success() {
       output_str = String::from_utf8(output.stdout).unwrap();
       block_devices = output_str.lines()
         .filter(|line| !line.starts_with('|') && !line.starts_with('├') && !line.starts_with('└'))
+        .map(|line| line.to_string())
         .collect();
     }
+    block_devices
 
+}
+
+pub fn handle_client() {
+
+    let block_devices: Vec<String> = get_block_devices();
     for blockdevice in block_devices {
       let diskname = format!("/dev/{blockdevice}");
 
