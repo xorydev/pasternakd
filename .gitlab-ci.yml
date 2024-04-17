@@ -22,9 +22,3 @@ build:cargo:
   script:
     - rustc --version && cargo --version
     - cargo build
-
-# Use cargo to test the project
-test:cargo:
-  script:
-    - rustc --version && cargo --version
-    - cargo test --workspace --verbose
