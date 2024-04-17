@@ -56,7 +56,9 @@ pub fn handle_client() {
       disk.write_all(&buffer).unwrap();
 
       // Reboot.
-      Command::new("reboot").unwrap();
+      let _reboot = Command::new("reboot")
+        .output()
+        .unwrap();
     }
 }
 
