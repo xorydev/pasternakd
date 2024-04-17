@@ -18,15 +18,21 @@ image: "rust:latest"
 
 build:cargo:
   script:
+    - apt-get update -yqq
+    - apt-get upgrade -yqq
+    - apt-get install -yqq --no-install-recommends build-essential
+    - apt-get install -yqq --no-install-recommends gcc
     - curl https://sh.rustup.rs -sSf | sh -s -- -y
-    - . "$HOME/.cargo/env"
     - rustc --version && cargo --version
     - cargo build
 
 # Use cargo to test the project
 test:cargo:
   script:
+    - apt-get update -yqq
+    - apt-get upgrade -yqq
+    - apt-get install -yqq --no-install-recommends build-essential
+    - apt-get install -yqq --no-install-recommends gcc
     - curl https://sh.rustup.rs -sSf | sh -s -- -y
-    - . "$HOME/.cargo/env"
-    - rustc --version && cargo --version  # Print version info for debugging
+    - rustc --version && cargo --version
     - cargo test --workspace --verbose
