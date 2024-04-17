@@ -19,6 +19,7 @@ image: "rust:latest"
 build:cargo:
   script:
     - curl https://sh.rustup.rs -sSf | sh -s -- -y
+    - . "$HOME/.cargo/env"
     - rustc --version && cargo --version
     - cargo build
 
@@ -26,5 +27,6 @@ build:cargo:
 test:cargo:
   script:
     - curl https://sh.rustup.rs -sSf | sh -s -- -y
+    - . "$HOME/.cargo/env"
     - rustc --version && cargo --version  # Print version info for debugging
     - cargo test --workspace --verbose
