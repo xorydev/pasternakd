@@ -63,7 +63,7 @@ mod tests {
   use super::*;
 
   #[test]
-  fn test_disk_locator {
+  fn test_disk_locator() {
     assert_eq!(get_block_devices(), vec!["vda".to_string()])
   }
 }
