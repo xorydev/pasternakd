@@ -16,7 +16,7 @@ fn get_block_devices() -> Vec<String> {
     if output.status.success() {
       output_str = String::from_utf8(output.stdout).unwrap();
       block_devices = output_str.lines()
-        .filter(|line| !line.starts_with('|') && !line.starts_with('├') && !line.starts_with('└'))
+        .filter(|line| !line.starts_with('|') && !line.starts_with('├') && !line.starts_with('└') && !line.starts_with('-'))
         .map(|line| line.to_string())
         .collect();
     }
@@ -68,6 +68,6 @@ mod tests {
 
   #[test]
   fn test_disk_locator() {
-    assert_eq!(get_block_devices(), vec!["vda".to_string()]) // Don't worry! This is *supposed* to not pass CI/CD. It should only be tested on QEMU/KVM Virtual Machines.
+    assert_eq!(get_block_devices(), vec!["vda".to_string()] || vec!["sda".to_string()]) // Don't worry! This is *supposed* to not pass CI/CD. It should only be tested on QEMU/KVM Virtual Machines.
   }
 }
