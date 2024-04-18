@@ -1,5 +1,5 @@
 
-![](https://git.xorycode.dev/xory/pasternakd/-/raw/improved-readme/demo.mp4)
+![](https://git.xorycode.dev/xory/pasternakd/-/raw/main/demo.mp4)
 # pasternakd
 A daemon for the pasternak network-activated killswitch, intended to detach GPT & LUKS headers, making all LUKS encrypted data unrecoverable.
 
